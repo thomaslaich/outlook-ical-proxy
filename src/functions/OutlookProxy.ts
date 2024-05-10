@@ -4,14 +4,14 @@ import {
   HttpResponseInit,
   InvocationContext,
 } from "@azure/functions";
-import { DefaultAzureCredential } from "@azure/identity";
-import { SecretClient } from "@azure/keyvault-secrets";
 
 export async function OutlookProxy(
   request: HttpRequest,
   context: InvocationContext
 ): Promise<HttpResponseInit> {
   context.log(`Http function processed request for url "${request.url}"`);
+
+  console.log("envs", process.env);
 
   // Initialize Azure Key Vault client
   const outlookICalEndpoint = process.env.OUTLOOK_ICAL_ENDPOINT;
