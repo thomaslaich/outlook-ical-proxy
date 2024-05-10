@@ -11,16 +11,17 @@ export async function OutlookProxy(
 ): Promise<HttpResponseInit> {
   context.log(`Http function processed request for url "${request.url}"`);
 
-  console.log("envs", process.env);
-
   // Initialize Azure Key Vault client
   const outlookICalEndpoint = process.env.OUTLOOK_ICAL_ENDPOINT;
+
+  console.log("outlookICalEndpoint", outlookICalEndpoint);
 
   const response = await fetch(outlookICalEndpoint);
   const calendarData = await response.text();
   const updatedCalendarData = calendarData
-    .replace(/Central Europe Standard Time/g, "Europe/Zurich")
-    .replace(/W\. Europe Standard Time/g, "Europe/Zurich");
+    .replace(/TZID=.*:/g, "TZID=Europe/Zurich:")
+    .replace(/TZID:W\. Europe Standard Time/g, "TZID:Europe/Zurich")
+    .replace(/TZID:Central Europe Standard Time/g, "TZID:Europe/Zurich");
 
   return {
     headers: {
