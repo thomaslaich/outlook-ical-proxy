@@ -36,6 +36,7 @@
             packages = with pkgs; [
               nodejs_20
               azure-functions-core-tools
+              azure-cli
               just
             ];
           };
