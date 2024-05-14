@@ -31,7 +31,7 @@ export async function OutlookProxy(
   };
 }
 
-app.http("OutlookProxy", {
+app.http(`OutlookProxy-${process.env.ENDPOINT}`, {
   methods: ["GET"],
   authLevel: "anonymous",
   handler: OutlookProxy,
